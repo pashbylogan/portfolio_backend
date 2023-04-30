@@ -1,12 +1,12 @@
 from api.fictionary import bp
 from flask import Response, request
-import os, openai
+import os, openai, json
 
-openai.api_key = os.getenv('OPENAI_API_KEY')
+openai.api_key = os.getenv('OPEN_AI_KEY')
 
 def define(model, prompt, num_return=1):
-    models = openai.Model.list()
-    return models
+    completion = openai.Completion.create(model=model, prompt=prompt)
+    return completion.choices[0].text
 
 API_KEYS = {os.getenv('API_KEY')}
 def authenticate_api_key(func):
@@ -33,7 +33,8 @@ def word():
     word = data['word']
 
     try:
-        definition = define(word, None)
+        prompt_template = "Define the word '{}' in a few sentences as if you were urban dictionary.".format(word)
+        definition = define(os.getenv('OPEN_AI_MODEL'), prompt_template)
     except Exception as e:
         print(e)
         definition = "This word is undefinable. Good job..."
