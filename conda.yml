@@ -1,0 +1,9 @@
+name: portfolio_backend
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - Flask
+  - Gunicorn
