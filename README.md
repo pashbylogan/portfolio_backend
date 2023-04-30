@@ -31,15 +31,18 @@ To set up the API locally, follow these steps:
 1. Clone the repository: 
 ```bash
 git clone https://github.com/pashbylogan/toybox-api.git
+```
 
 2. Create and activate a Conda environment using the provided `conda.yml` file:
 ```bash
 conda env create -f conda.yml
 conda activate toybox-api
+```
 
 3. Start the development server using gunicorn
 ```bash
 gunicorn wsgi:app
+```
 
 
 Now, the API should be running at `http://localhost:8000`.
@@ -62,6 +65,7 @@ To create a new project blueprint, follow these steps:
 from flask import Blueprint
 
 project2_blueprint = Blueprint('project2', __name__, url_prefix='/project2')
+```
 
 In the routes.py file, define your project's endpoints:
 ```python
@@ -70,12 +74,14 @@ from . import project2_blueprint
 @project2_blueprint.route('/endpoint', methods=['GET'])
 def your_function():
     # Your code here
+```
 
 5. Import the blueprint in the app.py file and register it:
 ```python
 from blueprints.project2 import project2_blueprint
 
 app.register_blueprint(project2_blueprint)
+```
 
 Now, your project's endpoints are accessible at http://localhost:8000/project2/endpoint.
 
